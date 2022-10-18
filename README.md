@@ -4,6 +4,7 @@ Deploy azure linux virtual machine using terraform
 # Steps to run
 clone the repository
 https://github.com/tiru007/linuxVMusingTF
+
 Browse to directory, where you have downloaded the repository
 
 # Run terraform init to initialize the Terraform deployment. This command downloads the Azure modules required to manage your Azure resources.

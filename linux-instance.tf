@@ -12,29 +12,29 @@ resource "azurerm_network_interface" "terra" {
 }
 
 resource "azurerm_linux_virtual_machine" "terra" {
-  name                = "terra-machine01"
+  name                = "${var.hostname}"
   resource_group_name = azurerm_resource_group.terra.name
-  location            = azurerm_resource_group.terra.location
-  size                = "Standard_D2_v2"
-  admin_username      = "linuxadmin"
+  location            = azurerm_resource_group .terra.location
+  size                = "${var.vm_size}"
+  admin_username      = "${var.admin_username}"
   network_interface_ids = [
     azurerm_network_interface.terra.id,
   ]
 
   admin_ssh_key {
-    username   = "trainer"
-    public_key = file("~/.ssh/id_rsa.pub")
+    username   = "${var.admin_username}"
+    public_key = file("${var.ssh_public_key}")
   }
 
   os_disk {
     caching              = "ReadWrite"
-    storage_account_type = "Standard_LRS"
+    storage_account_type = "${var.storage_account_type}"
   }
 
   source_image_reference {
-    publisher = "Canonical"
-    offer     = "UbuntuServer"
-    sku       = "16.04-LTS"
-    version   = "latest"
+    publisher = "${var.image_publisher}"
+    offer     = "${var.image_offer}"
+    sku       = "${var.image_sku}"
+    version   = "${var.image_version}"
   }
 }

@@ -14,6 +14,6 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "terra" {
-  name     = "terra-rg"
-  location = "east us"
+  name     = "${var.name_prefix}-rg"
+  location = "${var.location}"
 }

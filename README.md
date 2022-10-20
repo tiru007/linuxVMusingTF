@@ -11,7 +11,7 @@ Browse to directory, where you have downloaded the repository
 > terraform init
 
 # Run terraform plan to create an execution plan.
-> terraform plan -out main.tfplan
+> terraform.exe plan -var-file="vars.tfvars" -out main.tfplan
 
 # Run terraform apply to apply the execution plan to your cloud infrastructure.
 > terraform apply main.tfplan
@@ -26,7 +26,7 @@ Browse to directory, where you have downloaded the repository
 # Steps to Cleanup
 
 # Run terraform plan and specify the destroy flag.
-> terraform plan -destroy -out main.destroy.tfplan
+> terraform plan -destroy -var-file="vars.tfvars" -out main.destroy.tfplan
 
 # Run terraform apply to apply the execution plan.
 > terraform apply main.destroy.tfplan

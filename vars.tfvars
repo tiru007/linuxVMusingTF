@@ -8,6 +8,8 @@ ssh_public_key = "~/.ssh/id_rsa.pub"
 
 vnet_address_space = "10.0.0.0/16"
 
+IP_address = "10.0.0.10"
+
 subnet_address_space = "10.0.0.0/24"
 
 storage_account_type = "Standard_LRS"

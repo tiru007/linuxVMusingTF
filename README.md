@@ -1,5 +1,5 @@
 # terra-demo-vm
-Deploy azure linux virtual machine using terraform
+Deploy azure linux virtual machine with static private IP using terraform
 
 # Steps to run
 clone the repository

@@ -27,6 +27,11 @@ variable "subnet_address_space" {
   default     = "10.0.0.0/24"
 }
 
+variable "IP_address" {
+  description = "the subset of the virtual network for this subnet"
+  default     = "10.0.0.5"
+}
+
 variable "storage_account_type" {
   description = "type of storage account"
   default     = "Standard_LRS"

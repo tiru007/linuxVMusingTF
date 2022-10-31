@@ -6,7 +6,8 @@ resource "azurerm_network_interface" "terra" {
   ip_configuration {
     name                          = "internal"
     subnet_id                     = azurerm_subnet.terra.id
-    private_ip_address_allocation = "Dynamic"
+    private_ip_address_allocation = "static"
+    private_ip_address            = "${var.IP_address}"
     public_ip_address_id          = azurerm_public_ip.terra.id
   }
 }
@@ -14,7 +15,7 @@ resource "azurerm_network_interface" "terra" {
 resource "azurerm_linux_virtual_machine" "terra" {
   name                = "${var.hostname}"
   resource_group_name = azurerm_resource_group.terra.name
-  location            = azurerm_resource_group .terra.location
+  location            = azurerm_resource_group.terra.location
   size                = "${var.vm_size}"
   admin_username      = "${var.admin_username}"
   network_interface_ids = [
@@ -38,3 +39,4 @@ resource "azurerm_linux_virtual_machine" "terra" {
     version   = "${var.image_version}"
   }
 }
+

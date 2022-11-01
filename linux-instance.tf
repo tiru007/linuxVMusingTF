@@ -6,8 +6,7 @@ resource "azurerm_network_interface" "terra" {
   ip_configuration {
     name                          = "internal"
     subnet_id                     = azurerm_subnet.terra.id
-    private_ip_address_allocation = "static"
-    private_ip_address            = "${var.IP_address}"
+    private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = azurerm_public_ip.terra.id
   }
 }
@@ -40,3 +39,19 @@ resource "azurerm_linux_virtual_machine" "terra" {
   }
 }
 
+resource "null_resource" "terra" {
+    provisioner "local-exec" {
+      command = <<EOT
+        $nic_id=$(az vm show -g "${var.name_prefix}-rg" -n "${var.hostname}" -d --query networkProfile.networkInterfaces[0].id --output tsv)
+        $nicName=$(az network nic show --ids $nic_id --query name --output tsv)
+        $ipconfig=$(az network nic show --ids $nic_id --query ipConfigurations[0].name --output tsv)
+        $IPAddress=$(az network nic show --ids $nic_id --query ipConfigurations[0].privateIpAddress --output tsv)
+
+        az network nic ip-config update -g "${var.name_prefix}-rg" --nic-name $nicName -n $ipconfig --private-ip-address $IPAddress
+      EOT
+    interpreter = ["powershell", "-Command"]
+    }
+  depends_on = [
+    azurerm_linux_virtual_machine.terra
+  ]
+}
